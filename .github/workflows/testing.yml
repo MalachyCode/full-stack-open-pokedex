@@ -1,0 +1,33 @@
+name: Testing stuff
+
+on:
+  push:
+    branches:
+      - master
+      # note that your "main" branch might be called main instead of master
+
+jobs:
+  a_test_job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: github context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: commits
+        env:
+          COMMITS: ${{ toJson(github.event.commits) }}
+        run: echo "$COMMITS"
+      - name: commit messages
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+        run: echo "$COMMIT_MESSAGES"
+      - name: check commit messages
+        if: ${{ ! contains(join(github.event.commits.*.message, ', '), 'build') }}
+        # if: ${{ ! contains(github.event.commits[0].message, 'build') }}
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits[0].message) }}
+          # COMMIT_MESSAGES: ${{ join(toJson(github.event.commits.*.message), ', ') }}
+          # COMMIT_MESSAGES: ${{ join(github.event.commits.*.message, ', ') }}
+        run: echo "$COMMIT_MESSAGES"
