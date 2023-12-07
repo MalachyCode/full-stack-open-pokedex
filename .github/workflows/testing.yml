@@ -26,7 +26,6 @@ jobs:
       - name: check commit messages
         if: ${{ ! contains(join(github.event.commits.*.message, ', '), 'build') }}
         # if: ${{ ! contains(github.event.commits[0].message, 'build') }}
-
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits[0].message) }}
           # COMMIT_MESSAGES: ${{ join(toJson(github.event.commits.*.message), ', ') }}
