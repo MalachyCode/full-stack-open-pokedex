@@ -24,7 +24,7 @@ jobs:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
       - name: check commit messages
-        # if: "!contains(${{ github.event.head_commit.message }}, 'build')"
+        if: "!contains(${{ github.event.commits[0].message }}, 'build')"
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits[0].message) }}
           # COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
