@@ -41,3 +41,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+      - name: Test Success
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: ${{ success() }}
+        with:
+          severity: Informational
+          description: 'to: https://pokedex-hjo9.onrender.com.' by ${{ Committer }}
+          # details: 'to: ${{ secrets.URL }}.'
+          text: A new version of pokedex deployed
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Failure
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: ${{ failure() }}
+        with:
+          severity: Error
+          description: commit ${{ Commit URL }} by ${{ Committer }} broke the build :(
+          text: Build Failed!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Cancelled
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: ${{ cancelled() }}
+        with:
+          severity: warn
+          # details: 'Custom details: Somebody set up us the bomb.'
+          text: Test Cancelled!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
