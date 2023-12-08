@@ -45,7 +45,7 @@ jobs:
         if: ${{ success() }}
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
-          severity: Informational
+          severity: info
           description: 'to: https://pokedex-hjo9.onrender.com.'
           # details: 'to: ${{ secrets.URL }}.'
           text: A new version of pokedex deployed
@@ -54,7 +54,7 @@ jobs:
         if: ${{ failure() }}
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
-          severity: Error
+          severity: error
           description: commit broke the build :(
           text: Build Failed!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
