@@ -46,7 +46,7 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           severity: Informational
-          description: 'to: https://pokedex-hjo9.onrender.com. by ${{ Committer }}'
+          description: 'to: https://pokedex-hjo9.onrender.com.'
           # details: 'to: ${{ secrets.URL }}.'
           text: A new version of pokedex deployed
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
@@ -55,7 +55,7 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           severity: Error
-          description: commit ${{ Commit URL }} by ${{ Committer }} broke the build :(
+          description: commit broke the build :(
           text: Build Failed!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Test Cancelled
